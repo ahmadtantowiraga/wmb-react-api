@@ -3,10 +3,15 @@ import PropTypes from "prop-types";
 import { IconTable } from "@tabler/icons-react";
 import { IconMeat } from "@tabler/icons-react";
 import { Link } from "react-router-dom";
-
-
+import { useNavigate } from "react-router-dom";
 
 export default function Sidebar() {
+    const navigate = useNavigate();
+
+    const handleLogout = ()=>{
+        localStorage.removeItem('user');
+        navigate('/login');
+    }
 
     return (
       <div
@@ -48,7 +53,7 @@ export default function Sidebar() {
             </li>
             </Link>
             <hr />
-            <li className="cursor-pointer text-white">
+            <li onClick={handleLogout} className="cursor-pointer text-white">
               <i className="me-3">
                 <IconDoorExit />
               </i>
