@@ -49,7 +49,7 @@ function MenuList() {
 
   const handleDelete = async (id) => {
     console.log(id);
-    if (!confirm("apakah yakin product ini ingin dihapus?")) return;
+    if (!confirm("apakah yakin menu ini ingin dihapus?")) return;
     try {
       const response = await menuService.deleteById(id);
       if (response.statusCode === 200) {
@@ -86,7 +86,7 @@ function MenuList() {
           <i className="me-2">
             <IconPlus />
           </i>
-          Tambah Produk
+          Tambah Menu
         </Link>
       </div>
       <div className="d-flex justify-content-between align-items-center mt-4">
