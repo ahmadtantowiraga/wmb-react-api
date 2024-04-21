@@ -1,11 +1,13 @@
 
-import Login from './Authentication/Login'
+
+import MenuForm from './Menu/component/MenuForm'
+
 
 function App() {
 
   return (
     <>
-      <Login />
+      <MenuForm />
     </>
   )
 }
