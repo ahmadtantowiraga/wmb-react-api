@@ -1,38 +1,83 @@
-import { useState } from "react";
+
 import { IconX } from "@tabler/icons-react";
 import { IconDeviceFloppy } from "@tabler/icons-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
+import { useNavigate, useParams } from "react-router-dom";
+import { useEffect } from "react";
+import TableService from "../../service/TableService";
 
 const schema = z.object({
   id: z.string().optional(),
   name: z.string().min(1, "name wajib di isi!"),
-  price: z
-    .string()
-    .refine((val) => !isNaN(parseFloat(val)), "Harga harus berupa angka")
-    .transform((val) => parseInt(val))
-    .refine((val) => val >= 0, "harga harus lebih dari 0"),
-  image: z.any(),
 });
 
 function TableForm() {
   const {
     register,
+    handleSubmit,
     formState: { errors, isValid },
+    clearErrors,
+    reset,
+    setValue,
   } = useForm({
     mode: "onChange",
     resolver: zodResolver(schema),
   });
+  const navigate = useNavigate();
+  const tableService = TableService();
+  const { id } = useParams();
 
-  const [previewImage, setPreviewImage] = useState(
-    "https://lh5.googleusercontent.com/proxy/t08n2HuxPfw8OpbutGWjekHAgxfPFv-pZZ5_-uTfhEGK8B5Lp-VN4VjrdxKtr8acgJA93S14m9NdELzjafFfy13b68pQ7zzDiAmn4Xg8LvsTw1jogn_7wStYeOx7ojx5h63Gliw"
-  );
+
+  const handleBack = () => {
+    clearForm();
+    navigate("/table");
+  };
+
+  const onSubmit = async (data) => {
+    try {
+      const table = {
+        id: id,
+        tableName: data.name,
+      };
+      if (id){
+        await tableService.update(table)
+      }else{
+        await tableService.create(table);
+      } 
+      clearForm();
+      navigate("/table");
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const clearForm = () => {
+    clearErrors();
+    reset();
+  };
+
+  useEffect(() => {
+    if (id) {
+      const getTableById = async () => {
+        try {
+          const response = await tableService.getById(id);
+          const currentTable = response.data;
+          setValue("id", currentTable.id);
+          setValue("name", currentTable.tableName);
+        } catch (error) {
+          console.log(error);
+        }
+      };
+      getTableById();
+    }
+  }, [id, tableService, setValue]);
 
   return (
     <div className="shadow-sm p-4 rounded-2">
       <h2 className="mb-4">Form Table</h2>
-      <form autoComplete="off">
+      <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
         <div className="mb-3">
           <label htmlFor="name" className="form-label required">
             Nama
@@ -48,7 +93,7 @@ function TableForm() {
             <div className="invalid-feedback">{errors.name.message}</div>
           )}
         </div>
-       
+
         <div className="d-flex gap-2">
           <button
             type="submit"
@@ -61,7 +106,7 @@ function TableForm() {
             Simpan
           </button>
           <button
-   
+            onClick={handleBack}
             type="button"
             className="d-flex align-items-center btn btn-danger text-white"
           >
