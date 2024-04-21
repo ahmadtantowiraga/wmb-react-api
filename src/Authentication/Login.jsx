@@ -1,4 +1,12 @@
 import PropTypes from "prop-types";
+import * as z from "zod";
+
+const schema = z.object({
+    username: z.string().min(1, "Username tidak boleh kosong"),
+    password: z
+      .string()
+      .min(8, "Password setidaknya harus lebih dari 8 karakter"),
+  });
 
 function Login(){
 

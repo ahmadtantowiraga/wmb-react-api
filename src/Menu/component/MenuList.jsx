@@ -14,19 +14,6 @@ function MenuList() {
       </div>
       <div className="d-flex justify-content-between align-items-center mt-4">
         <div className="row">
-          <div className="col-12">
-            <select
-              className="form-select"
-              name="size"
-              id="size"
-        
-            >
-              <option value="10">10</option>
-              <option value="25">25</option>
-              <option value="50">50</option>
-              <option value="100">100</option>
-            </select>
-          </div>
         </div>
         <form autoComplete="off">
           <input
