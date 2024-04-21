@@ -123,10 +123,10 @@ function TableList() {
         </form>
       </div>
       <hr />
-      <div className="table-responsive mt-4">
-        <table className="table overflow-auto">
+      <div className="table-responsive mt-4 d-flex justify-content-center align-items-center">
+        <table className="table overflow-auto w-25">
           <thead>
-            <tr>
+            <tr className="table-info">
               <th>No</th>
               <th>Nama</th>
               <th>Aksi</th>
@@ -134,7 +134,7 @@ function TableList() {
           </thead>
           <tbody>
             {tables.map((table, index) => (
-              <tr key={table.id}>
+              <tr key={table.id} className="table-light">
                 <td>{index + 1}</td>
                 <td>{table.tableName}</td>
                 <td>

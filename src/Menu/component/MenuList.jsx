@@ -123,10 +123,11 @@ function MenuList() {
         </form>
       </div>
       <hr />
+
       <div className="table-responsive mt-4">
         <table className="table overflow-auto">
           <thead>
-            <tr>
+            <tr className="table-info">
               <th>No</th>
               <th>Nama</th>
               <th>Harga</th>
@@ -136,7 +137,7 @@ function MenuList() {
           </thead>
           <tbody>
             {menus.map((menu, index) => (
-              <tr key={menu.id}>
+              <tr key={menu.id} className="table-light">
                 <td>{index + 1}</td>
                 <td>{menu.menuName}</td>
                 <td>{menu.price}</td>

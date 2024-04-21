@@ -64,14 +64,17 @@ function Login() {
                   alt="..."
                 />
                 <div className="card-body">
-                  <div className="login text-center">
-                    <h2>Login</h2>
+                  <div className="text-center">
+                    <div className="badge text-bg-info">
+                      <h2>Login</h2>
+                    </div>
                   </div>
+
                   <form onSubmit={handleSubmit(onSubmit)} className="form">
                     <div className="mb-3">
                       <label
                         htmlFor="exampleInputEmail1"
-                        className="form-label"
+                        className="badge text-bg-info"
                       >
                         username
                       </label>
@@ -94,7 +97,7 @@ function Login() {
                     <div className="mb-3">
                       <label
                         htmlFor="exampleInputPassword1"
-                        className="form-label"
+                        className="badge text-bg-info"
                       >
                         Password
                       </label>
@@ -115,7 +118,11 @@ function Login() {
                     </div>
 
                     <div className="container text-center">
-                      <button disabled={!isValid} type="submit" className="btn btn-primary w-75">
+                      <button
+                        disabled={!isValid}
+                        type="submit"
+                        className="btn btn-primary w-75"
+                      >
                         Login
                       </button>
                     </div>

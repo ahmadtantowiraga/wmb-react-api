@@ -15,7 +15,7 @@ export default function Sidebar() {
 
     return (
       <div
-        className={"bg-info text-white p-4 shadow"}
+        className={"bg-success p-2 bg-opacity-30 text-white p-4 shadow"}
         style={{ width: 350, minHeight: "100dvh" }}
       >
         <div className="font-logo text-center mb-5">

@@ -13,9 +13,21 @@ $danger: #ff1521;
 body {
   font-family: "Montserrat", sans-serif;
 }
+#form-login {
+  background-color: #0c0c04;
+  
+}
+
+.card {
+  background-image: url('public/login.jpg');
+
+}
+
 #form-login .row{
   height: 100vh;
+  
 }
+
 .text-primary {
   text-decoration: none;
 }
