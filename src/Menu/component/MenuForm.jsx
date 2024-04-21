@@ -4,6 +4,9 @@ import { IconDeviceFloppy } from "@tabler/icons-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
+import { useNavigate, useParams } from "react-router-dom";
+import MenuService from "../../service/MenuService";
+import { useEffect } from "react";
 
 const schema = z.object({
   id: z.string().optional(),
@@ -19,20 +22,84 @@ const schema = z.object({
 function MenuForm() {
   const {
     register,
+    handleSubmit,
     formState: { errors, isValid },
+    clearErrors,
+    reset,
+    setValue,
   } = useForm({
     mode: "onChange",
     resolver: zodResolver(schema),
   });
+  const navigate = useNavigate();
+  const menuService = MenuService();
+  const { id } = useParams();
 
   const [previewImage, setPreviewImage] = useState(
     "https://lh5.googleusercontent.com/proxy/t08n2HuxPfw8OpbutGWjekHAgxfPFv-pZZ5_-uTfhEGK8B5Lp-VN4VjrdxKtr8acgJA93S14m9NdELzjafFfy13b68pQ7zzDiAmn4Xg8LvsTw1jogn_7wStYeOx7ojx5h63Gliw"
   );
 
+  const handleImageChange = (e) => {
+    const { files } = e.target;
+    const urlImage = URL.createObjectURL(files[0]);
+    setPreviewImage(urlImage);
+  };
+
+  const handleBack = () => {
+    clearForm();
+    navigate("/menu");
+  };
+
+  const onSubmit = async (data) => {
+    try {
+      const form = new FormData();
+      const menu = {
+        id: id,
+        menuName: data.name,
+        price: data.price,
+      };
+      form.append("menu", JSON.stringify(menu));
+      form.append("image", data.image[0]);
+      if (id){
+        await menuService.update(form)
+      }else{
+        await menuService.create(form);
+      }
+      
+      clearForm();
+      navigate("/menu");
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const clearForm = () => {
+    clearErrors();
+    reset();
+  };
+
+  useEffect(() => {
+    if (id) {
+      const getMenuById = async () => {
+        try {
+          const response = await menuService.getById(id);
+          const currentMenu = response.data;
+          setValue("id", currentMenu.id);
+          setValue("name", currentMenu.menuName);
+          setValue("price", currentMenu.price);
+          setPreviewImage(currentMenu.imageResponse.url);
+        } catch (error) {
+          console.log(error);
+        }
+      };
+      getMenuById();
+    }
+  }, [id, menuService, setValue]);
+
   return (
     <div className="shadow-sm p-4 rounded-2">
       <h2 className="mb-4">Form Menu</h2>
-      <form autoComplete="off">
+      <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
         <div className="mb-3">
           <label htmlFor="name" className="form-label required">
             Nama
@@ -80,7 +147,7 @@ function MenuForm() {
           </label>
           <input
             {...register("image")}
-     
+            onChange={handleImageChange}
             type="file"
             accept="image/png, image/jpeg, image/jpg"
             className={`form-control ${errors.image && "is-invalid"}`}
@@ -103,7 +170,7 @@ function MenuForm() {
             Simpan
           </button>
           <button
-   
+            onClick={handleBack}
             type="button"
             className="d-flex align-items-center btn btn-danger text-white"
           >

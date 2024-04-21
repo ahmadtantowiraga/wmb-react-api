@@ -38,7 +38,7 @@ const router = createBrowserRouter([
               element: <MenuForm />,
             },
             {
-              path: "update",
+              path: "update/:id",
               element: <MenuForm />,
             },
           ],
