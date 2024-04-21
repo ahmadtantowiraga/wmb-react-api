@@ -1,5 +1,13 @@
 import Login from "../Authentication/Login";
-import Dasboard from "../Dashboard/Dashboard";
+import Dashboard from "../Dashboard/Dashboard";
+import Menu from "../Menu/Menu";
+import MenuForm from "../Menu/component/MenuForm";
+import MenuList from "../Menu/component/MenuList";
+import Table from "../Table/Table";
+import TableForm from "../Table/component/TableForm";
+import TableList from "../Table/component/TableList";
+import DashboardLayout from "../layout/DashboardLayout";
+import { createBrowserRouter } from "react-router-dom";
 
 const router = createBrowserRouter([
 
@@ -10,89 +18,43 @@ const router = createBrowserRouter([
   
     {
       path: "/",
-      element: <Dasboard />,
+      element: <DashboardLayout />,
       children: [
         {
           index: true,
           element: <Dashboard />,
         },
         {
-          path: "todo",
-          element: <Todo />,
+          path: "menu",
+          element: <Menu />,
           children: [
             {
               index: true,
-              element: <TodoList />,
+              element: <MenuList />,
             },
             {
               path: "new",
-              element: <TodoForm />,
+              element: <MenuForm />,
             },
             {
               path: "update",
-              element: <TodoForm />,
+              element: <MenuForm />,
             },
           ],
         },
         {
-          path: "customer",
-          element: <Customer />,
+          path: "table",
+          element: <Table />,
           children: [
             {
               index: true,
-              element: <CustomerList />,
+              element: <TableList />,
             },
             {
               path: "new",
-              element: <CustomerForm />,
+              element: <TableForm />,
             },
           ],
-        },
-        {
-          path: "admin",
-          element: <Admin />,
-          children: [
-            {
-              index: true,
-              element: <AdminList />,
-            },
-            {
-              path: "new",
-              element: <AdminForm />,
-            },
-          ],
-        },
-        {
-          path: "product",
-          element: <Product />,
-          children: [
-            {
-              index: true,
-              element: <ProductList />,
-            },
-            {
-              path: "new",
-              element: <ProductForm />,
-            },
-            {
-              path: "update/:id",
-              element: <ProductForm />,
-            },
-          ],
-        },
-        {
-          path: "transaction",
-          element: <Transaction />,
-          children: [
-            {
-              index: true,
-              element: <TransactionList />,
-            },
-          ],
-        },
-        {
-          path: "user",
-          element: <UserProfile />,
         },
       ],
     },

@@ -2,6 +2,8 @@ import { IconDoorExit, IconHome2 } from "@tabler/icons-react";
 import PropTypes from "prop-types";
 import { IconTable } from "@tabler/icons-react";
 import { IconMeat } from "@tabler/icons-react";
+import { Link } from "react-router-dom";
+
 
 
 export default function Sidebar() {
@@ -21,25 +23,30 @@ export default function Sidebar() {
         <nav>
           <ul className="d-flex flex-column gap-3 nav-list list-unstyled">
             <p className="fw-bold mt-4">Navigation</p>
+            <Link to="/" className="text-white text-decoration-none" href="/">
             <li className="cursor-pointer text-white">
               <i className="me-3">
                 <IconHome2 />
               </i>
               <span>Dasboard</span>
             </li>
+            </Link>
+            <Link to="/menu" className="text-white text-decoration-none" href="/">
             <li  className="cursor-pointer text-white">
               <i className="me-3">
                 <IconMeat />
               </i>
               <span>Menu</span>
             </li>
+            </Link>
+            <Link to="/table" className="text-white text-decoration-none" href="/">
             <li className="cursor-pointer text-white">
               <i className="me-3">
                 <IconTable />
               </i>
               <span>Table</span>
             </li>
-
+            </Link>
             <hr />
             <li className="cursor-pointer text-white">
               <i className="me-3">
