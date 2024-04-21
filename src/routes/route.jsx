@@ -55,6 +55,10 @@ const router = createBrowserRouter([
               path: "new",
               element: <TableForm />,
             },
+            {
+                path: "update/:id",
+                element: <TableForm />,
+              },
           ],
         },
       ],
