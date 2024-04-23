@@ -9,6 +9,8 @@ import TableList from "../Table/component/TableList";
 import DashboardLayout from "../layout/DashboardLayout";
 import { createBrowserRouter } from "react-router-dom";
 import ProtectedRoute from "./ProtectedRoute";
+import Transaction from "../Transaction/Transaction";
+import TransactionList from "../Transaction/components/TransactionList";
 
 const router = createBrowserRouter([
 
@@ -58,6 +60,24 @@ const router = createBrowserRouter([
             {
                 path: "update/:id",
                 element: <TableForm />,
+              },
+          ],
+        },
+        {
+          path: "transaction",
+          element: <Transaction />,
+          children: [
+            {
+              index: true,
+              element: <TransactionList />,
+            },
+            {
+              path: "new",
+              // element: <TransactionForm />,
+            },
+            {
+                path: "update/:id",
+                // element: <TransactionForm />,
               },
           ],
         },
