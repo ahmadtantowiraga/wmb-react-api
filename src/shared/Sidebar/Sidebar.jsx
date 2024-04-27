@@ -1,4 +1,4 @@
-import { IconDoorExit, IconHome2 } from "@tabler/icons-react";
+import { IconDoorExit, IconHome2, IconReceipt } from "@tabler/icons-react";
 import PropTypes from "prop-types";
 import { IconTable } from "@tabler/icons-react";
 import { IconMeat } from "@tabler/icons-react";
@@ -50,6 +50,14 @@ export default function Sidebar() {
                 <IconTable />
               </i>
               <span>Table</span>
+            </li>
+            </Link>
+            <Link to="/transaction" className="text-white text-decoration-none" href="/">
+            <li className="cursor-pointer text-white">
+              <i className="me-3">
+                <IconReceipt />
+              </i>
+              <span>Transaction</span>
             </li>
             </Link>
             <hr />

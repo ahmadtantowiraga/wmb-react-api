@@ -11,6 +11,7 @@ import { createBrowserRouter } from "react-router-dom";
 import ProtectedRoute from "./ProtectedRoute";
 import Transaction from "../Transaction/Transaction";
 import TransactionList from "../Transaction/components/TransactionList";
+import TransactionForm from "../Transaction/components/TransactionForm";
 
 const router = createBrowserRouter([
 
@@ -73,11 +74,11 @@ const router = createBrowserRouter([
             },
             {
               path: "new",
-              // element: <TransactionForm />,
+              element: <TransactionForm />,
             },
             {
                 path: "update/:id",
-                // element: <TransactionForm />,
+                element: <TransactionForm />,
               },
           ],
         },
