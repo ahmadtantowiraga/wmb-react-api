@@ -7,16 +7,17 @@ import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useEffect } from "react";
 import { useState } from "react";
-import TableService from "../../service/TableService";
+import CustomerService from "../../service/CustomerService";
+
 
 
 function CustomerList() {
-  const [tables, setTables] = useState([]);
+  const [customers, setCustomers] = useState([]);
   const [searchParam, setSearchParam] = useSearchParams();
-  const tableService = useMemo(() => TableService(), []);
+  const customerService = useMemo(() => CustomerService(), []);
   const { handleSubmit, register } = useForm();
 
-  const search = searchParam.get("tableName") || "";
+  const search = searchParam.get("customerName") || "";
   const page = searchParam.get("page") || "1";
   const size = searchParam.get("size") || "10";
 
@@ -30,32 +31,32 @@ function CustomerList() {
   });
 
   const onSubmitSearch = ({ search }) => {
-    setSearchParam({ tableName: search || "", page: "1", size: "10" });
+    setSearchParam({ customerName: search || "", page: "1", size: "10" });
   };
 
   const handleNextPage = () => {
     if (page >= paging.totalPages) return;
-    setSearchParam({ tableName: "", page: +page + 1, size: size });
+    setSearchParam({ customerName: "", page: +page + 1, size: size });
   };
 
   const handlePreviousPage = () => {
     if (page <= 1) return;
-    setSearchParam({ tableName: "", page: +page - 1, size: size });
+    setSearchParam({ customerName: "", page: +page - 1, size: size });
   };
 
   const navigatePage = (page) => {
     if (!page) return;
-    setSearchParam({ tableName: "", page: page, size: size });
+    setSearchParam({ customerName: "", page: page, size: size });
   };
 
   const handleDelete = async (id) => {
     console.log(id);
-    if (!confirm("apakah yakin table ini ingin dihapus?")) return;
+    if (!confirm("apakah yakin customer ini ingin dihapus?")) return;
     try {
-      const response = await tableService.deleteById(id);
+      const response = await customerService.deleteById(id);
       if (response.statusCode === 200) {
-        const data = await tableService.getAll();
-        setTables(data.data);
+        const data = await customerService.getAll();
+        setCustomers(data.data);
       }
     } catch (error) {
       console.log(error);
@@ -63,31 +64,31 @@ function CustomerList() {
   };
 
   useEffect(() => {
-    const getTables = async () => {
+    const getCustomers = async () => {
       try {
-        const data = await tableService.getAll({
-          tableName: search,
+        const data = await customerService.getAll({
+          customerName: search,
           page: page,
           size: size,
         });
-        setTables(data.data);
+        setCustomers(data.data);
         setPaging(data.pagingResponse);
       } catch (error) {
         console.log(error);
       }
     };
-    getTables();
-  }, [page, tableService, search, searchParam, size]);
+    getCustomers();
+  }, [page, customerService, search, searchParam, size]);
 
   return (
     <div className="p-4 shadow-sm rounded-2">
       <div className="d-flex justify-content-between align-items-center mb-3">
-        <h3>Table List</h3>
-        <Link className="btn btn-primary" to="/table/new">
+        <h3>Customer List</h3>
+        <Link className="btn btn-primary" to="/customer/new">
           <i className="me-2">
             <IconPlus />
           </i>
-          Tambah Table
+          Tambah Customer
         </Link>
       </div>
       <div className="d-flex justify-content-between align-items-center mt-4">
@@ -130,18 +131,20 @@ function CustomerList() {
             <tr className="table-info">
               <th>No</th>
               <th>Nama</th>
+              <th>Phone</th>
               <th>Aksi</th>
             </tr>
           </thead>
           <tbody>
-            {tables.map((table, index) => (
-              <tr key={table.id} className="table-light">
+            {customers.map((customer, index) => (
+              <tr key={customer.id} className="table-light">
                 <td>{index + 1}</td>
-                <td>{table.tableName}</td>
+                <td>{customer.customerName}</td>
+                <td>{customer.mobilePhoneNo}</td>
                 <td>
                   <div className="btn-group">
                     <Link
-                      to={`/table/update/${table.id}`}
+                      to={`/customer/update/${customer.id}`}
                       className="btn btn-primary"
                     >
                       <i>
@@ -149,7 +152,7 @@ function CustomerList() {
                       </i>
                     </Link>
                     <button
-                      onClick={() => handleDelete(table.id)}
+                      onClick={() => handleDelete(customer.id)}
                       className="btn btn-danger"
                     >
                       <i className="text-white">
@@ -166,7 +169,7 @@ function CustomerList() {
 
       <div className="d-flex align-items-center justify-content-between mt-4">
         <small>
-          Show data {tables.length} of {paging.totalElement}
+          Show data {customers.length} of {paging.totalElement}
         </small>
         <nav aria-label="Page navigation example">
           <ul className="pagination">

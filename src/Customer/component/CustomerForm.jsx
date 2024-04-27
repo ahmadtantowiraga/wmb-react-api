@@ -7,6 +7,7 @@ import * as z from "zod";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
 import CustomerService from "../../service/CustomerService";
+import { useMemo } from "react";
 
 
 
@@ -29,7 +30,7 @@ function CustomerForm() {
     resolver: zodResolver(schema),
   });
   const navigate = useNavigate();
-  const customerService = CustomerService();
+  const customerService = useMemo(() => CustomerService(), []);
   const { id } = useParams();
 
 
@@ -43,6 +44,7 @@ function CustomerForm() {
       const customer = {
         id: id,
         customerName: data.name,
+        mobilePhoneNo: data.phone,
       };
       if (id){
         await customerService.update(customer)
@@ -65,7 +67,7 @@ function CustomerForm() {
     if (id) {
       const getCustomerById = async () => {
         try {
-          const response = await CustomerService.getById(id);
+          const response = await customerService.getById(id);
           const currentCustomer = response.data;
           setValue("id", currentCustomer.id);
           setValue("name", currentCustomer.customerName);
