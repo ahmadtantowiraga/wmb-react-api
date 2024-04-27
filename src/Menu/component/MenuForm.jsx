@@ -7,6 +7,7 @@ import * as z from "zod";
 import { useNavigate, useParams } from "react-router-dom";
 import MenuService from "../../service/MenuService";
 import { useEffect } from "react";
+import { useMemo } from "react";
 
 const schema = z.object({
   id: z.string().optional(),
@@ -32,7 +33,7 @@ function MenuForm() {
     resolver: zodResolver(schema),
   });
   const navigate = useNavigate();
-  const menuService = MenuService();
+  const menuService = useMemo(() => MenuService(), []);
   const { id } = useParams();
 
   const [previewImage, setPreviewImage] = useState(

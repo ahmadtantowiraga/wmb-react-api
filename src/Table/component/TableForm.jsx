@@ -7,6 +7,7 @@ import * as z from "zod";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
 import TableService from "../../service/TableService";
+import { useMemo } from "react";
 
 const schema = z.object({
   id: z.string().optional(),
@@ -26,7 +27,7 @@ function TableForm() {
     resolver: zodResolver(schema),
   });
   const navigate = useNavigate();
-  const tableService = TableService();
+  const tableService = useMemo(() => TableService(), []);
   const { id } = useParams();
 
 
