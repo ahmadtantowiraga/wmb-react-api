@@ -12,6 +12,9 @@ import ProtectedRoute from "./ProtectedRoute";
 import Transaction from "../Transaction/Transaction";
 import TransactionList from "../Transaction/components/TransactionList";
 import TransactionForm from "../Transaction/components/TransactionForm";
+// import Customer from "../assets/Customer/Customer";
+// import CustomerList from "../assets/Customer/component/CustomerList";
+// import CustomerForm from "../assets/Customer/component/CustomerForm";
 
 const router = createBrowserRouter([
 
@@ -82,6 +85,24 @@ const router = createBrowserRouter([
               },
           ],
         },
+        // {
+        //   path: "customer",
+        //   element: <Customer />,
+        //   children: [
+        //     {
+        //       index: true,
+        //       element: <CustomerList />,
+        //     },
+        //     {
+        //       path: "new",
+        //       element: <CustomerForm />,
+        //     },
+        //     {
+        //         path: "update/:id",
+        //         element: <CustomerForm />,
+        //       },
+        //   ],
+        // },
       ],
     },
   ]);

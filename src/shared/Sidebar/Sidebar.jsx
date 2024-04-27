@@ -4,6 +4,7 @@ import { IconTable } from "@tabler/icons-react";
 import { IconMeat } from "@tabler/icons-react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { IconBrandSuperhuman } from "@tabler/icons-react";
 
 export default function Sidebar() {
     const navigate = useNavigate();
@@ -42,6 +43,14 @@ export default function Sidebar() {
                 <IconMeat />
               </i>
               <span>Menu</span>
+            </li>
+            </Link>
+            <Link to="/customer" className="text-white text-decoration-none" href="/">
+            <li  className="cursor-pointer text-white">
+              <i className="me-3">
+                <IconBrandSuperhuman />
+              </i>
+              <span>Customer</span>
             </li>
             </Link>
             <Link to="/table" className="text-white text-decoration-none" href="/">
