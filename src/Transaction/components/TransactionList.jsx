@@ -148,12 +148,17 @@ function TransactionList() {
                   </span>
                 </td>
                 <td>
+                <Link
+                      to={`/transaction/detail/${transaction.id}`}
+                      className="btn btn-primary"
+                    >
                   <button className="btn btn-primary">
                     <i className="me-2">
                       <IconEye />
                     </i>
                     Lihat Detail
                   </button>
+                  </Link>
                 </td>
                 <td><a href={transaction.paymentResponse.redirectUrl}>e-money</a></td>
               </tr>

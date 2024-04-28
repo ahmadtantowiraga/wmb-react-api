@@ -15,6 +15,7 @@ import TransactionForm from "../Transaction/components/TransactionForm";
 import Customer from "../Customer/Customer";
 import CustomerList from "../Customer/component/CustomerList";
 import CustomerForm from "../Customer/component/CustomerForm";
+import TransactionDetail from "../Transaction/components/TransactionDetail";
 
 
 const router = createBrowserRouter([
@@ -81,9 +82,9 @@ const router = createBrowserRouter([
               element: <TransactionForm />,
             },
             {
-                path: "update/:id",
-                element: <TransactionForm />,
-              },
+              path: "detail/:id",
+              element: <TransactionDetail />,
+          },
           ],
         },
         {
