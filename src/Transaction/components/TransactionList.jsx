@@ -133,6 +133,7 @@ function TransactionList() {
               <th>Tanggal Transaksi</th>
               <th>Status Transaksi</th>
               <th>Aksi</th>
+              <th>Payment</th>
             </tr>
           </thead>
           <tbody>
@@ -154,6 +155,7 @@ function TransactionList() {
                     Lihat Detail
                   </button>
                 </td>
+                <td><a href={transaction.paymentResponse.redirectUrl}>e-money</a></td>
               </tr>
             ))}
           </tbody>
