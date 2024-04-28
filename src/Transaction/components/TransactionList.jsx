@@ -143,7 +143,7 @@ function TransactionList() {
                 <td>{transaction.customerName}</td>
                 <td>{transaction.date}</td>
                 <td>
-                  <span className={`badge ${transaction.paymentResponse.transactionStatus==='settlement' ? "text-bg-success" : "text-bg-danger"} text-white`}>
+                  <span className={`badge ${transaction.paymentResponse.transactionStatus==='settlement' ? "text-bg-success" : "text-bg-danger"}`}>
                     {transaction.paymentResponse.transactionStatus}
                   </span>
                 </td>
